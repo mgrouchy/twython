@@ -83,8 +83,8 @@ class TwythonRateLimitError(TwythonError):
 
 
 class Twython(object):
-    def __init__(self, app_key=None, app_secret=None, oauth_token=None, oauth_token_secret=None, \
-                headers=None, callback_url=None, twitter_token=None, twitter_secret=None, proxies=None):
+    def __init__(self, app_key=None, app_secret=None, oauth_token=None, oauth_token_secret=None,
+                 headers=None, callback_url=None, twitter_token=None, twitter_secret=None, proxies=None):
         """Instantiates an instance of Twython. Takes optional parameters for authentication and such (see below).
 
             :param app_key: (optional) Your applications key
@@ -120,12 +120,12 @@ class Twython(object):
         self.auth = None
 
         if self.app_key is not None and self.app_secret is not None and \
-        self.oauth_token is None and self.oauth_token_secret is None:
+                self.oauth_token is None and self.oauth_token_secret is None:
             self.auth = OAuth1(self.app_key, self.app_secret,
                                signature_type='auth_header')
 
         if self.app_key is not None and self.app_secret is not None and \
-        self.oauth_token is not None and self.oauth_token_secret is not None:
+                self.oauth_token is not None and self.oauth_token_secret is not None:
             self.auth = OAuth1(self.app_key, self.app_secret,
                                self.oauth_token, self.oauth_token_secret,
                                signature_type='auth_header')
@@ -185,15 +185,14 @@ class Twython(object):
             'content': content,
         }
 
-
         #  wrap the json loads in a try, and defer an error
         #  why? twitter will return invalid json with an error code in the headers
         json_error = False
         try:
             content = simplejson.loads(content)
         except ValueError:
-            json_error= True
-            content= {}
+            json_error = True
+            content = {}
 
         if response.status_code > 304:
             # If there is no error message, use a default.
@@ -478,7 +477,7 @@ class Twython(object):
             return image_url
         else:
             raise TwythonError('getProfileImageUrl() threw an error.',
-                                error_code=response.status_code)
+                               error_code=response.status_code)
 
     @staticmethod
     def stream(data, callback):
